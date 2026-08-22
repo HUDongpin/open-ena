@@ -71,6 +71,33 @@ test("team names, titles, institutions, and local portraits match the approved b
   assert.doesNotMatch(css, /\.team-index/);
 });
 
+test("the About page includes the approved Project Publications with local cover artwork", () => {
+  const about = read("app/about/page.tsx");
+  const publications = read("lib/publications.ts");
+  const publicationCard = read("components/PublicationCard.tsx");
+  const css = read("app/globals.css");
+  const covers = [
+    "public/publications/ena-3d-epistemic-network.webp",
+    "public/publications/arcs-data-literacy-reflection.webp",
+    "public/publications/rena-to-jena-open-tools.webp",
+  ];
+
+  assert.match(about, /quantitative ethnography, artificial intelligence, and educational technology/);
+  assert.doesNotMatch(about, /quantitative ethnography, data science, and educational technology/);
+  assert.match(about, /PROJECT PUBLICATIONS/);
+  assert.match(publications, /Development of ENA 3D/);
+  assert.match(publications, /Effects on the learning achievement/);
+  assert.match(publications, /Design and development from rENA to jENA/);
+  assert.match(publications, /10\.1007\/978-3-031-76335-9_11/);
+  assert.match(publications, /10\.1016\/j\.compedu\.2025\.105397/);
+  assert.match(publicationCard, /<cite>/);
+  assert.match(css, /text-indent: -1\.15rem/);
+
+  for (const cover of covers) {
+    assert.equal(existsSync(join(root, cover)), true, `${cover} should exist`);
+  }
+});
+
 test("the logo makes openness structural and provides accessible descriptions", () => {
   const mark = read("public/logo-open-ena-mark.svg");
   const wordmark = read("public/logo-open-ena.svg");

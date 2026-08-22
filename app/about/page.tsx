@@ -1,23 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PublicationCard from "@/components/PublicationCard";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import TeamCard from "@/components/TeamCard";
+import { projectPublications } from "@/lib/publications";
 import { teamMembers } from "@/lib/team";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Meet the researchers and collaborators behind Open ENA.",
+  description: "Meet the researchers behind Open ENA and explore the project's publications.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About | Open ENA",
-    description: "Meet the researchers and collaborators behind Open ENA.",
+    description: "Meet the researchers behind Open ENA and explore the project's publications.",
     url: "/about",
   },
   twitter: {
     card: "summary",
     title: "About | Open ENA",
-    description: "Meet the researchers and collaborators behind Open ENA.",
+    description: "Meet the researchers behind Open ENA and explore the project's publications.",
   },
 };
 
@@ -32,6 +34,15 @@ export default function AboutPage() {
     description: member.bio,
     ...(member.profileUrl ? { sameAs: member.profileUrl } : {}),
   }));
+  const publicationsJsonLd = projectPublications.map((publication) => ({
+    "@type": publication.href ? "ScholarlyArticle" : "CreativeWork",
+    name: publication.title.replace(/\.$/, ""),
+    author: publication.schemaAuthors.map((name) => ({ "@type": "Person", name })),
+    ...(publication.href ? { datePublished: publication.datePublished } : {}),
+    image: `https://www.open-ena.com${publication.cover}`,
+    isPartOf: { "@type": "CreativeWork", name: publication.sourceName },
+    ...(publication.href ? { sameAs: publication.href, identifier: publication.href } : {}),
+  }));
 
   return (
     <>
@@ -42,7 +53,7 @@ export default function AboutPage() {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@graph": peopleJsonLd,
+              "@graph": [...peopleJsonLd, ...publicationsJsonLd],
             }).replace(/</g, "\\u003c"),
           }}
         />
@@ -52,7 +63,7 @@ export default function AboutPage() {
             <h1 id="about-title">A small team.<br /><em>An open horizon.</em></h1>
           </div>
           <div className="about-hero-copy">
-            <p>Open ENA brings together learning science, quantitative ethnography, data science, and educational technology.</p>
+            <p>Open ENA brings together learning science, quantitative ethnography, artificial intelligence, and educational technology.</p>
             <p>We are building a transparent and approachable path into Epistemic Network Analysis—one where methods, interface decisions, and future capabilities can be inspected rather than hidden.</p>
           </div>
         </section>
@@ -66,6 +77,20 @@ export default function AboutPage() {
           <div className="team-grid">
             {teamMembers.map((member, index) => <TeamCard key={member.name} member={member} index={index} />)}
           </div>
+        </section>
+
+        <section className="publications-section" aria-labelledby="publications-title">
+          <div className="publications-heading">
+            <p className="eyebrow">PROJECT PUBLICATIONS</p>
+            <h2 id="publications-title">Research behind the open work.</h2>
+            <span>Selected work across three-dimensional ENA, data literacy, and the development of open, web-based analysis tools.</span>
+          </div>
+          <div className="publications-grid">
+            {projectPublications.map((publication) => (
+              <PublicationCard key={publication.id} publication={publication} />
+            ))}
+          </div>
+          <p className="publication-note">References use APA 7th formatting with the publication details currently available. Cover artwork was created for the Open ENA project and is not the publisher’s official cover.</p>
         </section>
 
         <section className="about-principle" aria-labelledby="principle-title">
