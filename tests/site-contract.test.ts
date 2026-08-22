@@ -51,7 +51,11 @@ test("team names, titles, institutions, and local portraits match the approved b
   const expected = [
     ["Dr. Peter HU Dongpin", "The Education University of Hong Kong", "public/team/peter-hu-dongpin.png"],
     ["Prof. Eric Hamilton", "Pepperdine University", "public/team/eric-hamilton.png"],
-    ["Prof. Sandy TU Yun-Fang", "Soochow University, Taiwan", "public/team/sandy-tu-yun-fang.jpg"],
+    [
+      "Prof. Sandy TU Yun-Fang",
+      "National Taiwan University of Science and Technology",
+      "public/team/sandy-tu-yun-fang.jpg",
+    ],
     ["Ms. Shirleen XU Qiaolin", "Meredith College", "public/team/shirleen-xu-qiaolin.png"],
   ] as const;
 
@@ -61,7 +65,7 @@ test("team names, titles, institutions, and local portraits match the approved b
     assert.equal(existsSync(join(root, image)), true, `${image} should exist`);
   }
 
-  assert.doesNotMatch(team, /National Taiwan University of Science and Technology/);
+  assert.doesNotMatch(team, /Soochow University/);
   assert.doesNotMatch(team, /Shirleen[\s\S]{0,300}(Professor|PhD|Department of)/i);
   assert.doesNotMatch(teamCard, /team-index/);
   assert.doesNotMatch(css, /\.team-index/);
