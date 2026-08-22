@@ -104,4 +104,7 @@ test("canonical production metadata exposes only the two public routes", () => {
   assert.match(sitemap, /https:\/\/www\.open-ena\.com\/about/);
   assert.equal((sitemap.match(/url:/g) ?? []).length, 2);
   assert.equal(JSON.parse(read("vercel.json")).framework, "nextjs");
+  const nextConfig = read("next.config.ts");
+  assert.match(nextConfig, /type: "host", value: "open-ena\.com"/);
+  assert.match(nextConfig, /destination: "https:\/\/www\.open-ena\.com\/:path\*"/);
 });
