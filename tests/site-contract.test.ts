@@ -98,6 +98,22 @@ test("the About page includes the approved Project Publications with local cover
   }
 });
 
+test("the GitHub introduction credits the three design and development collaborators and cites the research foundation", () => {
+  const readme = read("README.md");
+
+  assert.match(
+    readme,
+    /collaboratively designed and developed by \*\*Dr\. Peter HU Dongpin\*\*, \*\*Professor Eric Hamilton\*\*, and \*\*Professor Tu Yun-Fang\*\*/,
+  );
+  assert.match(readme, /top-tier peer-reviewed journals and leading international conference proceedings/);
+  assert.match(readme, /Q1 journal \*Computers & Education\*/);
+  assert.match(readme, /Published work/);
+  assert.match(readme, /Forthcoming work/);
+  assert.match(readme, /10\.1007\/978-3-031-76335-9_11/);
+  assert.match(readme, /10\.1016\/j\.compedu\.2025\.105397/);
+  assert.match(readme, /official ICQE 2026 proceedings and DOI are released/);
+});
+
 test("the logo makes openness structural and provides accessible descriptions", () => {
   const mark = read("public/logo-open-ena-mark.svg");
   const wordmark = read("public/logo-open-ena.svg");
