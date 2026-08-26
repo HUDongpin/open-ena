@@ -90,7 +90,6 @@ export default function AboutPage() {
               <PublicationCard key={publication.id} publication={publication} />
             ))}
           </div>
-          <p className="publication-note">References use APA 7th formatting with the publication details currently available. Cover artwork was created for the Open ENA project and is not the publisher’s official cover.</p>
         </section>
 
         <section className="about-principle" aria-labelledby="principle-title">

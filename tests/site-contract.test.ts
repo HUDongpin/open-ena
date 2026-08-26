@@ -98,6 +98,24 @@ test("the About page includes the approved Project Publications with local cover
   }
 });
 
+test("Project Publications use the requested order, author initials, and clean ending", () => {
+  const about = read("app/about/page.tsx");
+  const publications = read("lib/publications.ts");
+  const css = read("app/globals.css");
+
+  assert.match(
+    publications,
+    /id: "rena-to-jena",\s+sequence: "01"[\s\S]*id: "data-literacy-reflection",\s+sequence: "02"[\s\S]*id: "ena-3d",\s+sequence: "03"/,
+  );
+  assert.match(publications, /authors: "Hu, D\., Hamilton, E\., Tu, Y\. F\., & Xu, Q\."/);
+  assert.match(publications, /authors: "Tu, Y\. F\., Hwang, G\. J\., & Hu, D\."/);
+  assert.match(publications, /authors: "Yu, J\., Hu, D\., & Wang, C\. H\."/);
+  assert.doesNotMatch(publications, /authors: "[^"]*[A-Z]\.-[A-Z]\./);
+  assert.doesNotMatch(about, /References use APA 7th formatting/);
+  assert.doesNotMatch(about, /publication-note/);
+  assert.doesNotMatch(css, /\.publication-note/);
+});
+
 test("the GitHub introduction credits the three design and development collaborators and cites the research foundation", () => {
   const readme = read("README.md");
 

@@ -1757,16 +1757,6 @@ main {
   line-height: 1.5;
 }
 
-.publication-note {
-  max-width: 860px;
-  margin: 64px 0 0;
-  border-top: 1px solid var(--line);
-  padding-top: 17px;
-  color: var(--muted-light);
-  font-size: 0.72rem;
-  line-height: 1.65;
-}
-
 .about-principle {
   display: grid;
   width: min(100% - 48px, 1320px);
@@ -2247,10 +2237,6 @@ main {
   .publication-card-body {
     min-height: 100%;
     padding-top: 2px;
-  }
-
-  .publication-note {
-    margin-top: 52px;
   }
 
   .about-principle {
