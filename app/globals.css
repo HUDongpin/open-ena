@@ -529,6 +529,10 @@ main {
   content: "";
 }
 
+.preview-rail-modes button:focus-visible {
+  outline-color: var(--baby-blue);
+}
+
 .preview-rail-modes button:hover {
   color: #ffffff;
   background: rgb(255 255 255 / 6%);
@@ -1828,62 +1832,8 @@ main {
   margin-top: 29px;
 }
 
-@media (max-width: 1180px) {
-  .open-hero {
-    grid-template-columns: minmax(0, 1fr) minmax(370px, 0.82fr);
-    gap: 35px;
-  }
-
-  .open-ena-preview {
-    grid-template-columns: 80px 300px minmax(0, 1fr);
-  }
-
-  .preview-analysis-layout {
-    grid-template-columns: minmax(440px, 1fr) 215px;
-  }
-
-  .preview-toolbar-actions > button:first-child {
-    display: none;
-  }
-
-  .team-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-  }
-
-  .team-card-body {
-    min-height: 330px;
-  }
-}
-
-@media (max-width: 1000px) {
-  .open-hero {
-    grid-template-columns: 1fr;
-    padding-top: 90px;
-  }
-
-  .open-hero-copy {
-    max-width: 800px;
-  }
-
-  .network-hero {
-    width: min(82%, 620px);
-    justify-self: center;
-  }
-
-  .network-hero figcaption {
-    margin-inline: auto;
-  }
-
-  .section-heading {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .section-heading > p {
-    max-width: 680px;
-  }
-
+/* The desktop workbench needs 1193px including its rails, plots and margins. */
+@media (max-width: 1200px) {
   .open-ena-preview {
     min-height: 0;
     grid-template-columns: 1fr;
@@ -1971,6 +1921,55 @@ main {
 
   .preview-analysis-layout {
     grid-template-columns: minmax(0, 1fr) 260px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .open-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(370px, 0.82fr);
+    gap: 35px;
+  }
+
+  .preview-toolbar-actions > button:first-child {
+    display: none;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .team-card-body {
+    min-height: 330px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .open-hero {
+    grid-template-columns: 1fr;
+    padding-top: 90px;
+  }
+
+  .open-hero-copy {
+    max-width: 800px;
+  }
+
+  .network-hero {
+    width: min(82%, 620px);
+    justify-self: center;
+  }
+
+  .network-hero figcaption {
+    margin-inline: auto;
+  }
+
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .section-heading > p {
+    max-width: 680px;
   }
 
   .about-hero {

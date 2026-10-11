@@ -37,11 +37,30 @@ npm install
 npm run dev
 ```
 
+Install the browser test engines once after installing dependencies:
+
+```bash
+npx playwright install chromium firefox webkit
+```
+
+On Linux CI, use `npx playwright install --with-deps chromium firefox webkit` to
+install the required operating-system libraries as well.
+
 Before release:
 
 ```bash
 npm run verify
 ```
+
+`verify` runs the source-contract tests, TypeScript checks, production build, and
+browser regressions in Chromium, Firefox, and WebKit. Browser tests start their
+own local production server on `127.0.0.1:3108`; keep that port free. They block
+external browser requests and cover responsive clipping, keyboard mode changes,
+disabled analysis actions, navigation, metadata, local images, and HTTP routes.
+
+For targeted runs, use `npm test` or `npm run typecheck`. To run only browser
+tests against the latest code, use `npm run build && npm run test:e2e`.
+There is currently no configured lint task.
 
 ## Design
 
